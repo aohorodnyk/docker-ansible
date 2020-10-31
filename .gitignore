@@ -386,4 +386,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# token.txt
+token.txt
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,vim,python,emacs,intellij+all,macos,windows,linux,ansible
