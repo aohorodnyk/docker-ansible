@@ -11,8 +11,8 @@ RUN apk update && \
     # Clear dependecies
     apk del build-dependencies && \
     rm -rf /var/cache/apk/*
-    # Install ansible modules
 
+# Install ansible modules
 RUN ansible-galaxy collection install community.general
 
 WORKDIR /playbook
