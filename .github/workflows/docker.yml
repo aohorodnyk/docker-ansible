@@ -1,5 +1,7 @@
 name: Docker image build and push
-on: push
+on:
+  schedule:
+    - cron: "0 4 * * 2,6"
 jobs:
   docker-push:
     name: Docker image build and push
