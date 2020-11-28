@@ -1,7 +1,7 @@
 #!/bin/bash
 
-REPO_PATH="aohorodnyk/docker-ansible/ansible"
-FULL_URL="docker.pkg.github.com/${REPO_PATH}"
+REPO_PATH="aohorodnyk/ansible"
+FULL_URL="ghcr.io/${REPO_PATH}"
 
 docker build -t ansible:latest .
 
@@ -9,13 +9,20 @@ DOCKER_VERSION_FULL=$(docker run $FULL_URL:latest ansible --version | grep ansib
 DOCKER_VERSION_MINOR=$(echo $DOCKER_VERSION_FULL | grep -o '[0-9]\+\.[0-9]\+' | head -1)
 DOCKER_VERSION_MAJOR=$(echo $DOCKER_VERSION_MINOR | grep -o '[0-9]\+' | head -1)
 
+echo "Version full: '${DOCKER_VERSION_FULL}'"
+echo "Version minor: '${DOCKER_VERSION_MINOR}'"
+echo "Version major: '${DOCKER_VERSION_MAJOR}'"
+
+docker pull $FULL_URL:${DOCKER_VERSION_FULL}
+if [[ $(docker images --filter=reference="$FULL_URL:${DOCKER_VERSION_FULL}" -q) ]]; then
+  echo "Tag '${DOCKER_VERSION_FULL}' is exist"
+  exit 0
+fi
+
 docker tag ansible:latest $FULL_URL:latest
 
-echo "Version full: ${DOCKER_VERSION_FULL}"
 docker tag ansible:latest $FULL_URL:${DOCKER_VERSION_FULL}
-echo "Version minor: ${DOCKER_VERSION_MINOR}"
 docker tag ansible:latest $FULL_URL:${DOCKER_VERSION_MINOR}
-echo "Version major: ${DOCKER_VERSION_MAJOR}"
 docker tag ansible:latest $FULL_URL:${DOCKER_VERSION_MAJOR}
 
 docker push $FULL_URL:${DOCKER_VERSION_MAJOR}
