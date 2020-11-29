@@ -6,19 +6,19 @@
 * [Contributing](#contributing)
 
 ## Motivation
-Ansible is great tool for deployment, but one disadvantage is exist - "python and a lot of dependencies". In my "ideal world", I do not install a lot of dependencies from various programs on my working computer.
-One from the solution is containers. This docker-ansible image was created to provide all needed dependencies and as a result ansible can be used from docker without additional dependencies on local computer.
+Ansible is great tool for deployment, but one disadvantage is - "python and a lot of dependencies". In my "ideal world", I do not install a lot of dependencies from various programs on my working computer.
+This `docker-ansible` image was created to provide all needed dependencies inside the image and as a result ansible can be used from docker without additional dependencies on local computer.
 
-Docker repository is located `ghcr.io/aohorodnyk/ansible`
+Docker repository is located `ghcr.io/aohorodnyk/ansible`.
 
 ## Versions
-As usual the latest version of docker repository is located in `latest` tag.
-Every version is located in it repository, like `2.10.2`.
-All patch, minor and major versions are located hierarchically, as an example:
-* We have version `2.10.3`
-* We have version `2.10.4`
-* We have version `2.11.1`
-* We have version `2.11.2`
+The latest version of docker repository is located in `latest` tag.
+Every version has tag in the repository as `2.10.2`.
+All patch, minor and major versions are tagged hierarchically, as an example:
+* We have the version `2.10.3`
+* We have the version `2.10.4`
+* We have the version `2.11.1`
+* We have the version `2.11.2`
 * Tag `2.10` contains the latest `2.10` version, in our example - `2.10.4`
 * Tag `2.11` contains the latest `2.11` version, in our example - `2.11.2`
 * Tag `2` contains the latest `2` version, in our example - `2.11.2`
