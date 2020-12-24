@@ -5,7 +5,7 @@ FULL_URL="ghcr.io/${REPO_PATH}"
 
 docker build -t ansible:latest .
 
-DOCKER_VERSION_FULL=$(docker run $FULL_URL:latest ansible --version | grep ansible | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1)
+DOCKER_VERSION_FULL=$(docker run ansible:latest ansible --version | grep ansible | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1)
 DOCKER_VERSION_MINOR=$(echo $DOCKER_VERSION_FULL | grep -o '[0-9]\+\.[0-9]\+' | head -1)
 DOCKER_VERSION_MAJOR=$(echo $DOCKER_VERSION_MINOR | grep -o '[0-9]\+' | head -1)
 
