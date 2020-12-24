@@ -2,6 +2,7 @@ name: Docker image build and push
 on:
   schedule:
     - cron: "0 4 * * 2,6"
+  workflow_dispatch:
 jobs:
   docker-push:
     name: Docker image build and push
