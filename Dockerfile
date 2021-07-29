@@ -4,7 +4,6 @@ LABEL MAINTAINER "Anton Ohorodnyk <anton@ohorodnyk.name>"
 
 # Install all needed dependencies
 RUN apk update && \
-    apk add rust cargo && \
     apk add python3 py-pip openssl ca-certificates git openssh sshpass rsync && \
     apk add --virtual build-dependencies python3-dev libffi-dev openssl-dev build-base && \
     # Upgrade pip
