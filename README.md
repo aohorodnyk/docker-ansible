@@ -39,3 +39,19 @@ $ docker run -v $(pwd):/playbook:rw -v ~/.ssh:/root/.ssh:rw -ti ghcr.io/aohorodn
 ## Contributing
 All contributions have to follow the [CONTRIBUTING.md document](https://github.com/aohorodnyk/uid/blob/main/CONTRIBUTING.md)
 If you have any questions/issues/feature requests do not hesitate to create a ticket.
+
+Before contrbution, make sure that githook is configured for you and all your commits contain the correct issue tag.
+
+### Branch Name
+
+Before you start the contribution, make sure that you are on the correct branch. Branch name should start from the issue number dash and short explanation with spaces replaced by underscores. Example:
+
+- `1-my_feature`
+- `2-fix_bug`
+- `234-my_important_pr`
+
+### Git Hook
+
+To configure the git hook, you need to simply run the command: `git config core.hooksPath .githooks`
+
+It will configure the git hook to run the `pre-commit` script. Source code of the hook is in `.githooks/prepare-commit-msg`.

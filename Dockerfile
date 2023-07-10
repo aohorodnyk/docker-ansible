@@ -1,4 +1,4 @@
-FROM alpine:3.14
+FROM alpine:latest
 
 LABEL MAINTAINER "Anton Ohorodnyk <anton@ohorodnyk.name>"
 
