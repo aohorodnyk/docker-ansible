@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-LABEL MAINTAINER "Anton Ohorodnyk <anton@ohorodnyk.name>"
+LABEL MAINTAINER "Anton Ohorodnyk <me@aohorodnyk.com>"
 
 # Install all needed dependencies
 RUN apk update && \
