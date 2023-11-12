@@ -9,12 +9,12 @@ RUN apk update && \
     apk add --virtual build-dependencies python3-dev libffi-dev openssl-dev build-base && \
     # Upgrade pip
     pip install --upgrade pip ansible && \
+    # Install ansible modules
+    ansible-galaxy collection install community.general && \
+    ansible-galaxy collection install ansible.posix && \
     # Clear dependecies
-    apk del build-dependencies && \
+    apk del rust cargo && \
+    apk del build-dependencies python3-dev libffi-dev openssl-dev build-base && \
     rm -rf /var/cache/apk/*
-
-# Install ansible modules
-RUN ansible-galaxy collection install community.general && \
-    ansible-galaxy collection install ansible.posix
 
 WORKDIR /playbook
