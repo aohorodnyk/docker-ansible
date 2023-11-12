@@ -3,6 +3,8 @@ on:
   schedule:
     - cron: "0 4 * * 2,6"
   workflow_dispatch:
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/ansible
 jobs:
   docker-push:
     name: Docker image build and push
@@ -10,13 +12,30 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Set TAGS
+        id: set_tags
+        run: |
+          docker build -t ansible:latest .
+          DOCKER_VERSION_FULL=$(docker run ansible:latest ansible --version | grep ansible | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1)
+          DOCKER_VERSION_MINOR=$(echo $DOCKER_VERSION_FULL | grep -o '[0-9]\+\.[0-9]\+' | head -1)
+          DOCKER_VERSION_MAJOR=$(echo $DOCKER_VERSION_MINOR | grep -o '[0-9]\+' | head -1)
+          TAGS="$FULL_URL:latest,$FULL_URL:${DOCKER_VERSION_FULL},$FULL_URL:${DOCKER_VERSION_MINOR},$FULL_URL:${DOCKER_VERSION_MAJOR}"
+          echo "TAGS: '${TAGS}'"
+          echo ::set-output name=tags::${TAGS}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Login to GitHub Packages Docker Registry
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.CONTAINER_REGISTRY_TOKEN }}
-      - name: Build docker image and push it, if new tag available
-        run: bash ./push.sh
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64,linux/ppc64le
+          push: true
+          tags: ${{ steps.set_tags.outputs.tags }}
