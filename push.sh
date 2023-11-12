@@ -4,7 +4,7 @@ REPO_PATH="aohorodnyk/ansible"
 FULL_URL="ghcr.io/${REPO_PATH}"
 
 docker buildx create --use
-docker buildx build --platform=linux/amd64,linux/arm64,linux/arm/v7 -t ansible:latest .
+docker buildx build  --load --platform=linux/amd64,linux/arm64,linux/arm/v7 -t ansible:latest .
 
 DOCKER_VERSION_FULL=$(docker run ansible:latest ansible --version | grep ansible | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1)
 DOCKER_VERSION_MINOR=$(echo $DOCKER_VERSION_FULL | grep -o '[0-9]\+\.[0-9]\+' | head -1)
