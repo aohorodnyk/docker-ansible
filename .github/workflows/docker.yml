@@ -15,8 +15,8 @@ jobs:
       - name: Set TAGS
         id: set_tags
         run: |
-          docker build -t ansible:latest .
-          DOCKER_VERSION_FULL=$(docker run ansible:latest ansible --version | grep ansible | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1)
+          pip install ansible
+          DOCKER_VERSION_FULL=$(ansible --version | grep ansible | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1)
           DOCKER_VERSION_MINOR=$(echo $DOCKER_VERSION_FULL | grep -o '[0-9]\+\.[0-9]\+' | head -1)
           DOCKER_VERSION_MAJOR=$(echo $DOCKER_VERSION_MINOR | grep -o '[0-9]\+' | head -1)
           TAGS="${IMAGE_NAME}:latest,${IMAGE_NAME}:${DOCKER_VERSION_FULL},${IMAGE_NAME}:${DOCKER_VERSION_MINOR},${IMAGE_NAME}:${DOCKER_VERSION_MAJOR}"
