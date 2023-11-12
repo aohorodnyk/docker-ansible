@@ -21,7 +21,7 @@ jobs:
           DOCKER_VERSION_MAJOR=$(echo $DOCKER_VERSION_MINOR | grep -o '[0-9]\+' | head -1)
           TAGS="${IMAGE_NAME}:latest,${IMAGE_NAME}:${DOCKER_VERSION_FULL},${IMAGE_NAME}:${DOCKER_VERSION_MINOR},${IMAGE_NAME}:${DOCKER_VERSION_MAJOR}"
           echo "TAGS: '${TAGS}'"
-          echo ::set-output name=tags::${TAGS}
+          echo "TAGS=${TAGS}" >> "$GITHUB_OUTPUT"
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -36,6 +36,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          platforms: linux/amd64,linux/arm64,linux/ppc64le
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.set_tags.outputs.tags }}
