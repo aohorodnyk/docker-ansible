@@ -19,7 +19,7 @@ jobs:
           DOCKER_VERSION_FULL=$(docker run ansible:latest ansible --version | grep ansible | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1)
           DOCKER_VERSION_MINOR=$(echo $DOCKER_VERSION_FULL | grep -o '[0-9]\+\.[0-9]\+' | head -1)
           DOCKER_VERSION_MAJOR=$(echo $DOCKER_VERSION_MINOR | grep -o '[0-9]\+' | head -1)
-          TAGS="$FULL_URL:latest,$FULL_URL:${DOCKER_VERSION_FULL},$FULL_URL:${DOCKER_VERSION_MINOR},$FULL_URL:${DOCKER_VERSION_MAJOR}"
+          TAGS="${IMAGE_NAME}:latest,${IMAGE_NAME}:${DOCKER_VERSION_FULL},${IMAGE_NAME}:${DOCKER_VERSION_MINOR},${IMAGE_NAME}:${DOCKER_VERSION_MAJOR}"
           echo "TAGS: '${TAGS}'"
           echo ::set-output name=tags::${TAGS}
       - name: Set up QEMU
