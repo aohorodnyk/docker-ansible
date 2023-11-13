@@ -9,7 +9,7 @@
 Ansible is great tool for deployment, but one disadvantage is - "python and a lot of dependencies". In my "ideal world", I do not install a lot of dependencies from various programs on my working computer.
 This `docker-ansible` image was created to provide all needed dependencies inside the image and as a result ansible can be used from docker without additional dependencies on local computer.
 
-Docker repository is located [`ghcr.io/aohorodnyk/ansible`](https://github.com/users/aohorodnyk/packages/container/package/ansible).
+Docker repository is located [`ghcr.io/aohorodnyk/ansible`](https://github.com/users/aohorodnyk/packages/container/package/ansible) or [`aohorodnyk/ansible`](https://hub.docker.com/r/aohorodnyk/ansible).
 
 Build docker image with new version scheduled twice per week. Script pushes new image, only when new version of ansible is available.
 

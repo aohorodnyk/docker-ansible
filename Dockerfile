@@ -1,20 +1,27 @@
 FROM alpine:latest
 
 LABEL MAINTAINER "Anton Ohorodnyk <me@aohorodnyk.com>"
-
-# Install all needed dependencies
-RUN apk update && \
-    apk add rust cargo && \
-    apk add python3 py-pip openssl ca-certificates git openssh sshpass rsync && \
-    apk add --virtual build-dependencies python3-dev libffi-dev openssl-dev build-base && \
-    # Upgrade pip
-    pip install --upgrade pip ansible && \
-    # Clear dependecies
-    apk del build-dependencies && \
-    rm -rf /var/cache/apk/*
-
-# Install ansible modules
-RUN ansible-galaxy collection install community.general && \
-    ansible-galaxy collection install ansible.posix
+LABEL org.opencontainers.image.description "Ansible image for CI/CD pipelines."
 
 WORKDIR /playbook
+
+# Installing core dependencies.
+RUN apk add --no-cache ca-certificates
+# Installing the main packages to support Ansible tasks.
+RUN apk add --no-cache git openssh sshpass rsync
+# Installing python3.
+RUN apk add --no-cache python3
+# Installing pip.
+RUN apk add --no-cache py3-pip && \
+    # Installing Ansible's build dependencies and mark all of them as "build-dependencies".
+    apk add --no-cache --virtual build-dependencies python3-dev libffi-dev openssl-dev build-base rust cargo && \
+    # Upgrading pip.
+    pip3 install --upgrade pip && \
+    # Installing Ansible.
+    pip3 install ansible && \
+    # Purging pip cache.
+    pip3 cache purge && \
+    # Deleting Ansible's build dependencies.
+    apk del build-dependencies && \
+    # Removing apk cache.
+    rm -rf /var/cache/apk/*
