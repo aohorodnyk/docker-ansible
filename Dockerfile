@@ -25,3 +25,5 @@ RUN apk add --no-cache py3-pip && \
     apk del build-dependencies && \
     # Removing apk cache.
     rm -rf /var/cache/apk/*
+
+RUN ansible-galaxy install git+https://github.com/artis3n/ansible-role-tailscale
